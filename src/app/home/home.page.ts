@@ -1,4 +1,11 @@
 import { Component } from '@angular/core';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+
+export interface Item {
+  name: string;
+  email: string;
+}
 
 @Component({
   selector: 'app-home',
@@ -6,7 +13,14 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  private itemDoc: AngularFirestoreDocument<Item>;
+  item: Observable<Item>;
+  constructor(private afs: AngularFirestore) {
+    this.itemDoc = afs.doc<Item>('User/test1');
+    this.item = this.itemDoc.valueChanges();
+  }
 
-  constructor() {}
-
+  update(item: Item) {
+    this.itemDoc.update(item);
+  }
 }
