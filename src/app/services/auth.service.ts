@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from './user.model';
+import { User } from '../user.model';
 
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -15,6 +15,7 @@ import { switchMap } from 'rxjs/operators';
 export class AuthService {
 
   user$: Observable<User>;
+  userRef: AngularFirestoreDocument<User> = null;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -40,13 +41,20 @@ export class AuthService {
   }
 
   private async oAuthLogin(provider) {
-    const credential = await this.afAuth.auth.signInWithPopup(provider);
-    return this.updateUserData(credential.user);
+    try {
+      const credential = await this.afAuth.auth.signInWithPopup(provider);
+      // If login successfully, navigate to HomePage.
+      this.router.navigate(['home']);
+      return this.updateUserData(credential.user);
+    } catch(err) {
+      console.log(err);
+      return ;
+    }
   }
 
   private updateUserData(user) {
     // Sets user data to firestore on login
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`User/${user.uid}`);
+    this.userRef = this.afs.doc(`User/${user.uid}`);
 
     // Firebase user have a fixed set of basic properties,
     // uid, email, displayName, photoURL
@@ -56,7 +64,7 @@ export class AuthService {
       email: user.email
     };
 
-    return userRef.set(data, { merge: true });
+    return this.userRef.set(data, { merge: true });
   }
 
   async signOut() {

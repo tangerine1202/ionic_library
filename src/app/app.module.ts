@@ -15,12 +15,15 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
-    HomePageComponent
+    HomePageComponent,
+    PageNotFoundComponent,
   ],
   entryComponents: [],
   imports: [
@@ -30,6 +33,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularFireAuthGuardModule,
   ],
   providers: [
     StatusBar,
