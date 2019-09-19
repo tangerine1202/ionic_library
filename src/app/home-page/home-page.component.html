@@ -1,3 +1,17 @@
-<p>
-  home-page works!
-</p>
+<h2>Hello, {{username}}!</h2>
+
+<h4>User info</h4>
+<ul>
+  <li *ngFor="let item of authService.user | async | keyvalue">
+    {{item.key}}: {{item.value}}
+  </li>
+</ul>
+
+<h3>Books list</h3>
+<ul *ngFor="let book of bookService.books | async">
+  <ul>
+    <li *ngFor="let item of book | keyvalue">{{item.key}}: {{item.value}}</li>
+  </ul>
+</ul>
+
+<ion-button (click)="authService.signOut()">Sigh out</ion-button>
