@@ -1,17 +1,22 @@
-<h2>Hello, {{username}}!</h2>
+<ion-content>
+  <h2>Hello, {{(authService.user | async)?.name}}!</h2>
+  <!-- <h2>Hello, {{username?.name}}!</h2> -->
 
-<h4>User info</h4>
-<ul>
-  <li *ngFor="let item of authService.user | async | keyvalue">
-    {{item.key}}: {{item.value}}
-  </li>
-</ul>
+  <app-addbook-form></app-addbook-form>
 
-<h3>Books list</h3>
-<ul *ngFor="let book of bookService.books | async">
+  <h4>User info</h4>
   <ul>
-    <li *ngFor="let item of book | keyvalue">{{item.key}}: {{item.value}}</li>
+    <li *ngFor="let item of authService.user | async | keyvalue">
+      {{item.key}}: {{item.value}}
+    </li>
   </ul>
-</ul>
 
-<ion-button (click)="authService.signOut()">Sigh out</ion-button>
+  <h3>Books list</h3>
+  <ul *ngFor="let book of bookService.books | async">
+    <ul>
+      <li *ngFor="let item of book | keyvalue">{{item.key}}: {{item.value}}</li>
+    </ul>
+  </ul>
+
+  <ion-button (click)="authService.signOut()">Sigh out</ion-button>
+</ion-content>

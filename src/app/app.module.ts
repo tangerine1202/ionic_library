@@ -31,6 +31,7 @@ import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
   entryComponents: [],
   imports: [
     BrowserModule,
+    FormsModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),

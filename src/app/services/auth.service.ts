@@ -14,6 +14,9 @@ import { switchMap } from 'rxjs/operators';
 })
 export class AuthService {
 
+  // if want to get Firebase DocumentReference, use userDoc.ref
+  // userDoc: AngularFirestoreDocument<User>;
+  userData: any;
   // user: Observable, use to show the data in veiw
   user: Observable<User>;
 
@@ -23,9 +26,10 @@ export class AuthService {
     private router: Router
   ) {
     this.user = this.afAuth.authState.pipe(
-      switchMap( user => {
+      switchMap(user => {
         // Logged in
         if (user) {
+          // this.userDoc = this.afs.doc<User>(`User/${user.uid}`);
           return this.afs.doc<User>(`User/${user.uid}`).valueChanges();
         } else {
           // Logged out
@@ -33,7 +37,18 @@ export class AuthService {
         }
       })
     );
-   }
+
+    this.user.subscribe((u) => {
+      if (u !== null) {
+        this.userData = u;
+        console.log('userdata:', this.userData);
+      } else {
+        this.userData = new User(null, null, null);
+        console.log('userdata: null');
+      }
+    });
+
+  }
 
   async googleSignin() {
     const provider = new auth.GoogleAuthProvider();
@@ -47,7 +62,7 @@ export class AuthService {
       return this.updateUserData(credential.user);
     } catch (err) {
       console.log(err);
-      return ;
+      return;
     }
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { BookService } from '../services/book.service';
+import { User } from '../model/user.model';
 
 @Component({
   selector: 'app-home-page',
@@ -9,18 +10,13 @@ import { BookService } from '../services/book.service';
 })
 export class HomePageComponent implements OnInit {
 
-  username: string;
+  username: any;
 
   constructor(
     public authService: AuthService,
     public bookService: BookService,
   ) { }
 
-  ngOnInit() {
-    this.authService.user.subscribe((u) => {
-      this.username = u.name;
-      return;
-    })
-  }
+  ngOnInit() { }
 
 }

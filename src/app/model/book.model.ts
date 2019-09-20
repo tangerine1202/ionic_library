@@ -1,8 +1,10 @@
-export interface Book {
-    uid: string;
-    name: string;
-    author: string;
-    owner_uid: string;
-    borrower_uid: string;
-    ISBN?: string;
+export class Book {
+    constructor(
+        public uid: string,
+        public name: string,
+        public author: string,
+        public ownerUid: string,
+        public ISBN: string = null,
+        public borrowerUid: string = null,
+    ) { }
 }

@@ -22,6 +22,14 @@ export class BookService {
   }
 
   addBook(book: Book) {
-    this.booksCollection.add(book);
+    this.booksCollection.add({...book}).then((doc) => {
+      doc.update('uid', doc.id);
+      return 'Book added!';
+    }).then(msg => {
+      console.log(msg);
+    }).catch(err => {
+      console.log('Error occurred at book.service.addBook: \n', err);
+    });
+
   }
 }
