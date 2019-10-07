@@ -4,19 +4,26 @@
 
   <app-addbook-form></app-addbook-form>
 
-  <h4>User info</h4>
-  <ul>
-    <li *ngFor="let item of authService.user | async | keyvalue">
-      {{item.key}}: {{item.value}}
-    </li>
-  </ul>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>User Info</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let item of authService?.user | async | keyvalue">
+          <ion-label>
+            <h3>{{item?.key}}</h3>
+            <p>{{item?.value}}</p>
+          </ion-label>
+          <ion-avatar slot="end">
+            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+          </ion-avatar>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 
-  <h3>Books list</h3>
-  <ul *ngFor="let book of bookService.books | async">
-    <ul>
-      <li *ngFor="let item of book | keyvalue">{{item.key}}: {{item.value}}</li>
-    </ul>
-  </ul>
+  <app-books-list></app-books-list>
 
   <ion-button (click)="authService.signOut()">Sigh out</ion-button>
 </ion-content>

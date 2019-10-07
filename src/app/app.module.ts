@@ -10,6 +10,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { BooksListComponent } from './books-list/books-list.component';
+import { BookDetailComponent } from './book-detail/book-detail.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AddbookFormComponent } from './addbook-form/addbook-form.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -25,10 +27,15 @@ import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
     AppComponent,
     LoginPageComponent,
     HomePageComponent,
-    PageNotFoundComponent,
+    BookDetailComponent,
+    BooksListComponent,
     AddbookFormComponent,
+    PageNotFoundComponent,
   ],
-  entryComponents: [],
+  entryComponents: [
+    BooksListComponent,
+    // HomePageComponent,
+  ],
   imports: [
     BrowserModule,
     FormsModule,

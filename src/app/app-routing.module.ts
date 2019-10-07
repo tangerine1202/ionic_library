@@ -6,6 +6,8 @@ import { AngularFireAuthGuard, redirectUnauthorizedTo, redirectLoggedInTo } from
 import { LoginPageComponent } from './login-page/login-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { BooksListComponent } from './books-list/books-list.component';
+import { BookDetailComponent } from './book-detail/book-detail.component';
 import { AuthGuard } from './auth.guard';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
@@ -14,6 +16,8 @@ const redirectLoggedInToHome = () => redirectLoggedInTo(['home']);
 const routes: Routes = [
   { path: 'login', component: LoginPageComponent, canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectLoggedInToHome }},
   { path: 'home', component: HomePageComponent, canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin }},
+  { path: 'detail/:uid', component: BookDetailComponent, pathMatch: 'full', data: { authGuardPipe: redirectUnauthorizedToLogin }},
+  { path: 'list', component: BooksListComponent, data: { authGuardPipe: redirectUnauthorizedToLogin }},
   { path: '', redirectTo: 'login' , pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent },
 ];
@@ -22,7 +26,7 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(
       routes,
-      { 
+      {
         enableTracing: true, // debuggin purposes only
         // preloadingStrategy: PreloadAllModules
       }

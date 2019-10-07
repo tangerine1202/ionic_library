@@ -4,7 +4,7 @@ import { User } from '../model/user.model';
 
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
 
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -16,9 +16,12 @@ export class AuthService {
 
   // if want to get Firebase DocumentReference, use userDoc.ref
   // userDoc: AngularFirestoreDocument<User>;
-  userData: any;
+
   // user: Observable, use to show the data in veiw
   user: Observable<User>;
+  // when every time user changed. Store a copy to it.
+  userData: User | null;
+  private userCollection: AngularFirestoreCollection<User>;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -29,8 +32,8 @@ export class AuthService {
       switchMap(user => {
         // Logged in
         if (user) {
-          // this.userDoc = this.afs.doc<User>(`User/${user.uid}`);
-          return this.afs.doc<User>(`User/${user.uid}`).valueChanges();
+          this.userCollection = this.afs.collection<User>('User');
+          return this.userCollection.doc(user.uid).valueChanges();
         } else {
           // Logged out
           return of(null);
@@ -38,16 +41,16 @@ export class AuthService {
       })
     );
 
+    // TODO: reconstruct / delete userData
     this.user.subscribe((u) => {
       if (u !== null) {
         this.userData = u;
-        console.log('userdata:', this.userData);
+        console.log('getUserData:', this.userData);
       } else {
         this.userData = new User(null, null, null);
-        console.log('userdata: null');
+        console.log('getUserData: null');
       }
     });
-
   }
 
   async googleSignin() {
@@ -68,7 +71,7 @@ export class AuthService {
 
   private updateUserData(user) {
     // Sets user data to firestore on login
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`User/${user.uid}`);
+    const userRef: AngularFirestoreDocument<any> = this.userCollection.doc(user.uid);
 
     // Firebase user have a fixed set of basic properties,
     // uid, email, displayName, photoURL
@@ -86,4 +89,15 @@ export class AuthService {
     this.router.navigate(['/']);
   }
 
+  getUserByUid(uid: string) {
+    // TODO: improve the way handle uid is null
+    if (uid === null) {
+      uid = ' ';
+    }
+    return this.userCollection.doc(uid).get();
+  }
+
+  navtohome() {
+    this.router.navigate(['home']);
+  }
 }

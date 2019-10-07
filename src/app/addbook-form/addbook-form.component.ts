@@ -16,9 +16,7 @@ export class AddbookFormComponent implements OnInit {
     private authService: AuthService,
   ) { }
 
-  ngOnInit() {
-    // TODO: 載入早於auth.user
-  }
+  ngOnInit() { }
 
   onSubmit() {
     if (this.authService.userData.uid !== null) {
