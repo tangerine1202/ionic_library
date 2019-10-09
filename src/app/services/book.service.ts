@@ -44,7 +44,11 @@ export class BookService {
           console.log('borrowing book successfully!');
         } else {
           // TODO: Check if book is already borrowed by user
-          console.log(`book is borrowed by uid: ${docRef.data().borrowerUid}!`);
+          if(docRef.data().borrowerUid === this.auth.userData.uid) {
+            console.log('the book is already borrowed by you!');
+          } else {
+            console.log(`book is borrowed by uid: ${docRef.data().borrowerUid}!`);
+          }
         }
       } else {
         console.log('book doesn\'t exist!');

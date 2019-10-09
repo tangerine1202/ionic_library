@@ -8,6 +8,7 @@ import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection 
 
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { resolve } from 'dns';
 
 @Injectable({
   providedIn: 'root'
@@ -91,7 +92,9 @@ export class AuthService {
 
   getUserByUid(uid: string) {
     // TODO: improve the way handle uid is null
+    console.log('in getUserByUid', uid);
     if (uid === null) {
+      console.log('re set uid');
       uid = ' ';
     }
     return this.userCollection.doc(uid).get();

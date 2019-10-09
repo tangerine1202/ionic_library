@@ -33,6 +33,7 @@ export class BookDetailComponent implements OnInit {
     this.bookService.getBookByUid(uid).subscribe((doc) => {
       if (doc.exists) {
         this.selectedBook = doc.data();
+        console.log(this.selectedBook);
         // set ownerName
         this.authService.getUserByUid(this.selectedBook.ownerUid).subscribe(ownerDoc => {
           if (ownerDoc.exists) {
@@ -57,7 +58,7 @@ export class BookDetailComponent implements OnInit {
         this.ownerName = null;
         this.borrowerName = null;
       }
-    }, (err) => {console.log('Error occurred: ', err)});
+    }, (err) => {console.log('Error occurred: ', err); });
 
 
     // this.bookService.getBookByUid(uid).subscribe(doc => {
