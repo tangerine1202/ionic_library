@@ -1,12 +1,11 @@
 <ion-card>
   <ion-card-header>
-    <ion-card-title>Books list</ion-card-title>
+    <ion-card-title>{{listName}}</ion-card-title>
   </ion-card-header>
   
   <ion-card-content>
     <ion-list>
-      <!-- <ion-item button detail routerLink="/detail/{{book?.uid}}" *ngFor="let book of bookService.books | async"> -->
-      <ion-item button detail routerLink="/detail/{{book?.uid}}" *ngFor="let book of allBooks | async">
+      <ion-item button detail routerLink="/detail/{{book?.uid}}" *ngFor="let book of books | async">
         <ion-label>
           <h2>{{book.name}}</h2>
           <p>{{book.author}}</p>

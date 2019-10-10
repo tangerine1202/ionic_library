@@ -30,7 +30,7 @@ export class BookDetailComponent implements OnInit {
   selectBook() {
     const uid = this.route.snapshot.paramMap.get('uid');
     // TODO: improve this heavy codes
-    this.bookService.getBookByUid(uid).subscribe((doc) => {
+    this.bookService.getBookByBookUid(uid).subscribe((doc) => {
       if (doc.exists) {
         this.selectedBook = doc.data();
         console.log(this.selectedBook);

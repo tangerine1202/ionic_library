@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { BookService } from '../../services/book.service';
 import { Observable } from 'rxjs';
@@ -11,15 +11,14 @@ import { Book } from '../../model/book.model';
 })
 export class BooksListComponent implements OnInit {
 
-  allBooks: Observable<Book[]>;
+  @Input() listName: string;
+  @Input() books: Observable<Book[]>;
 
   constructor(
     public authService: AuthService,
     public bookService: BookService,
   ) { }
 
-  ngOnInit() {
-    this.allBooks = this.bookService.getAllBooks();
-  }
+  ngOnInit() { }
 
 }

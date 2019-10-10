@@ -1,12 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>My Book Shelf</ion-title>
+    <ion-title>Book Shelf</ion-title>
     <ion-buttons slot="primary">
-      <ion-button routerLink="/addBookForm" >Add Book</ion-button>
+      <ion-button routerLink="/addBookForm">Add Book</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <app-books-list></app-books-list>
+  <app-books-list [books]="this.userownedbooks" [listName]="'My Books'"></app-books-list>
+  <app-books-list [books]="this.userborrowedbooks" [listName]="'Borrowed Books'"></app-books-list>
 </ion-content>

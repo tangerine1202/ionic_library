@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { BookService } from '../../services/book.service';
+import { Observable } from 'rxjs';
+import { Book } from 'src/app/model/book.model';
 import { User } from '../../model/user.model';
 
 @Component({
@@ -10,11 +12,15 @@ import { User } from '../../model/user.model';
 })
 export class HomePageComponent implements OnInit {
 
+  allbooks: Observable<Book[]>;
+
   constructor(
     public authService: AuthService,
     public bookService: BookService,
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.allbooks = this.bookService.getAllBooks();
+  }
 
 }

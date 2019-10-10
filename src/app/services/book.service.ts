@@ -3,7 +3,8 @@ import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection 
 import { User } from '../model/user.model';
 import { Book } from '../model/book.model';
 import { AuthService } from './auth.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +12,10 @@ import { Observable } from 'rxjs';
 export class BookService {
 
   private bookCollection: AngularFirestoreCollection<Book>;
-  // books: Observable<Book[]>;
-  userOwnedBooks: Observable<Book[]> | null;
-  userBorrowedBooks: Observable<Book[]> | null;
 
   constructor(
     private afs: AngularFirestore,
-    private auth: AuthService,
+    private authService: AuthService,
   ) {
     this.bookCollection = this.afs.collection<Book>('Books');
     // this.books = this.bookCollection.valueChanges();
@@ -44,7 +42,7 @@ export class BookService {
           console.log('borrowing book successfully!');
         } else {
           // TODO: Check if book is already borrowed by user
-          if(docRef.data().borrowerUid === this.auth.userData.uid) {
+          if (docRef.data().borrowerUid === this.authService.userData.uid) {
             console.log('the book is already borrowed by you!');
           } else {
             console.log(`book is borrowed by uid: ${docRef.data().borrowerUid}!`);
@@ -75,7 +73,7 @@ export class BookService {
     return;
   }
 
-  getBookByUid(uid: string) {
+  getBookByBookUid(uid: string) {
     if (uid === null) {
       uid = ' ';
     }
@@ -86,7 +84,17 @@ export class BookService {
     return this.bookCollection.valueChanges();
   }
 
-  getBooksByUser() {
+  getBooksByOwnerUid() {
+    return this.authService.user.pipe(
+      switchMap((user, idx) => this.afs.collection('Books', ref => ref.where('ownerUid', '==', user.uid)).valueChanges()
+      )
+    );
+  }
 
+  getBooksByBorrowerUid() {
+    return this.authService.user.pipe(
+      switchMap((user, idx) => this.afs.collection('Books', ref => ref.where('borrowerUid', '==', user.uid)).valueChanges()
+      )
+    );
   }
 }
