@@ -99,6 +99,6 @@ export class AuthService {
   }
 
   navtohome() {
-    this.router.navigate(['home']);
+    this.router.navigate(['/tabs/home']);
   }
 }
