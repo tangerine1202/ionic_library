@@ -8,7 +8,6 @@ import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection 
 
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { resolve } from 'dns';
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +45,6 @@ export class AuthService {
     this.user.subscribe((u) => {
       if (u !== null) {
         this.userData = u;
-        console.log('getUserData:', this.userData);
       } else {
         this.userData = new User(null, null, null);
         console.log('getUserData: null');
@@ -87,7 +85,7 @@ export class AuthService {
 
   async signOut() {
     await this.afAuth.auth.signOut();
-    this.router.navigate(['/']);
+    this.router.navigate(['login']);
   }
 
   getUserByUid(uid: string) {

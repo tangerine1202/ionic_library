@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 export class BookService {
 
   private bookCollection: AngularFirestoreCollection<Book>;
-  books: Observable<Book[]>;
+  // books: Observable<Book[]>;
   userOwnedBooks: Observable<Book[]> | null;
   userBorrowedBooks: Observable<Book[]> | null;
 
@@ -20,7 +20,7 @@ export class BookService {
     private auth: AuthService,
   ) {
     this.bookCollection = this.afs.collection<Book>('Books');
-    this.books = this.bookCollection.valueChanges();
+    // this.books = this.bookCollection.valueChanges();
   }
 
   addBook(book: Book) {
@@ -63,7 +63,7 @@ export class BookService {
       if (docRef.exists) {
         // Check whether book is borrowed by user
         if (docRef.data().borrowerUid === userUid) {
-          doc.update({ 'borrowerUid': null });
+          doc.update({'borrowerUid': null });
           console.log('book return successfully!');
         } else {
           console.log(`book is not borrowed by you. It\'s borrowed by uid: ${docRef.data().borrowerUid}`);
@@ -80,23 +80,13 @@ export class BookService {
       uid = ' ';
     }
     return this.bookCollection.doc(uid).get();
-    // .subscribe(doc => {
-    //   if (doc.exists) {
-    //     // console.log('book data: ', doc.data());
-    //     return doc.data();
-    //   } else {
-    //     console.log('No such document!');
-    //     return { uid: null, name: null, author: null, ownerUid: null } as Book;
-    //   }
-    // }, (err) => {console.log('Error occurred: ', err)});
-    // this.bookCollection.doc(uid).ref.get().then(doc => {
-    //   if (doc.exists) {
-    //     // console.log('book data: ', doc.data());
-    //     return doc.data();
-    //   } else {
-    //     console.log('No such document!');
-    //     return { uid: null, name: null, author: null, ownerUid: null } as Book;
-    //   }
-    // }).catch(err => console.log('Error occurred: ', err));
+  }
+
+  getAllBooks() {
+    return this.bookCollection.valueChanges();
+  }
+
+  getBooksByUser() {
+
   }
 }

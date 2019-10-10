@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
-import { BookService } from '../services/book.service';
-import { NavController } from '@ionic/angular';
+import { AuthService } from '../../services/auth.service';
+import { BookService } from '../../services/book.service';
+import { Observable } from 'rxjs';
+import { Book } from '../../model/book.model';
 
 @Component({
   selector: 'app-books-list',
@@ -10,15 +11,15 @@ import { NavController } from '@ionic/angular';
 })
 export class BooksListComponent implements OnInit {
 
+  allBooks: Observable<Book[]>;
+
   constructor(
     public authService: AuthService,
     public bookService: BookService,
-    public navCtrl: NavController,
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.allBooks = this.bookService.getAllBooks();
+  }
 
-  // showDetail(uid: string) {
-  //   const book = this.bookService.getBookByUid(uid);
-  // }
 }
