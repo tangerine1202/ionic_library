@@ -23,28 +23,29 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
 import { TabsPageModule } from './tabs/tabs/tabs.module';
+import { TabsPage } from './tabs/tabs/tabs.page';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
+    // PageNotFoundComponent,
     // HomePageComponent,
     // BookShelfComponent,
     // BookDetailComponent,
     // BooksListComponent,
     // AddbookFormComponent,
-    PageNotFoundComponent,
   ],
   entryComponents: [ ],
   imports: [
     BrowserModule,
     FormsModule,
     IonicModule.forRoot(),
-    AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireAuthGuardModule,
+    AppRoutingModule,
     TabsPageModule,
   ],
   providers: [

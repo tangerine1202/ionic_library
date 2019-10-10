@@ -11,27 +11,50 @@ import { BookShelfComponent } from '../book-shelf/book-shelf.component';
 import { AddbookFormComponent } from 'src/app/tabs/addbook-form/addbook-form.component';
 import { BookDetailComponent } from '../book-detail/book-detail.component';
 import { BooksListComponent } from '../books-list/books-list.component';
+import { PageNotFoundComponent } from 'src/app/page-not-found/page-not-found.component';
+import { SettingsComponent } from "../settings/SettingsComponent";
 
 const routes: Routes = [
   {
-    path: 'home',
-    component: HomePageComponent,
-  }, {
-    path: 'bookShelf',
-    component: BookShelfComponent,
-  }, {
-    path: 'addBookForm',
-    component: AddbookFormComponent,
-  }, {
+    path: 'tabs',
+    component: TabsPage,
+    children: [
+      {
+        path: 'home',
+        component: HomePageComponent,
+      },
+      {
+        path: 'bookShelf',
+        component: BookShelfComponent,
+      },
+      {
+        path: 'settings',
+        component: SettingsComponent,
+      },
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full',
+      },
+      {
+        path: '**',
+        component: PageNotFoundComponent,
+      }
+    ]
+  },
+  {
     path: 'detail/:uid',
     component: BookDetailComponent,
     pathMatch: 'full',
-  }, {
-    path: 'list',
-    component: BooksListComponent,
-  }, {
+  },
+  {
+    path: 'addBookForm',
+    component: AddbookFormComponent,
+  },
+
+  {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'tabs/home',
     pathMatch: 'full',
   }
 ];
@@ -50,6 +73,9 @@ const routes: Routes = [
     BookDetailComponent,
     BooksListComponent,
     AddbookFormComponent,
-  ]
+    SettingsComponent,
+    PageNotFoundComponent,
+  ],
+  // bootstrap: [TabsPage]
 })
 export class TabsPageModule {}
