@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { BookService } from '../../services/book.service';
 import { AuthService } from '../../services/auth.service';
 import { Book } from '../../model/book.model';
@@ -12,8 +13,9 @@ export class AddbookFormComponent implements OnInit {
   addedBook = new Book(null, null, null, null);
 
   constructor(
-    private bookService: BookService,
     private authService: AuthService,
+    private bookService: BookService,
+    private location: Location,
   ) { }
 
   ngOnInit() { }
@@ -28,14 +30,8 @@ export class AddbookFormComponent implements OnInit {
     }
   }
 
-  // Testing function
-  get diagnostic() { return this.addedBook; }
-
-  // getUser() {
-  //   this.authService.user.subscribe((u) => {
-  //     this. = u.name;
-  //     return;
-  //   });
-  // }
+  goBack() {
+    this.location.back();
+  }
 
 }

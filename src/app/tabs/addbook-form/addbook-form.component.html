@@ -1,34 +1,40 @@
-<ion-card>
-  <ion-card-header>
-    <ion-card-title>
-      Add Book Form
-    </ion-card-title>
-  </ion-card-header>
-  <ion-card-content>
-    <form #addBookForm="ngForm" (ngSubmit)="onSubmit()">
-      <ion-item>
-        <ion-label position="floating">Book Name</ion-label>
-        <ion-input type="text" name="name" [(ngModel)]="addedBook.name" required #nameNgModel="ngModel"></ion-input>
-        <ion-note slot="end" [hidden]="nameNgModel.valid || nameNgModel.pristine">Book name is required.</ion-note>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Author</ion-label>
-        <ion-input type="text" name="author" [(ngModel)]="addedBook.author" required #authorNgModel="ngModel">
-        </ion-input>
-        <ion-note slot="end" [hidden]="authorNgModel.valid || authorNgModel.pristine">Author name is required.
-        </ion-note>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">
-          ISBN<ion-note> (optional) </ion-note>
-        </ion-label>
-        <ion-input type="text" name="ISBN" [(ngModel)]="addedBook.ISBN"></ion-input>
-      </ion-item>
+<ion-content>
 
-      <ion-button type="submit" [disabled]="!addBookForm.form.valid">Submit</ion-button>
-    </form>
-  </ion-card-content>
-</ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        Add Book Form
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form #addBookForm="ngForm" (ngSubmit)="onSubmit()">
+        <ion-item>
+          <ion-label position="floating">Book Name</ion-label>
+          <ion-input type="text" name="name" [(ngModel)]="addedBook.name" required #nameNgModel="ngModel"></ion-input>
+          <ion-note slot="end" [hidden]="nameNgModel.valid || nameNgModel.pristine">Book name is required.</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Author</ion-label>
+          <ion-input type="text" name="author" [(ngModel)]="addedBook.author" required #authorNgModel="ngModel">
+          </ion-input>
+          <ion-note slot="end" [hidden]="authorNgModel.valid || authorNgModel.pristine">Author name is required.
+          </ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">
+            ISBN<ion-note> (optional) </ion-note>
+          </ion-label>
+          <ion-input type="text" name="ISBN" [(ngModel)]="addedBook.ISBN"></ion-input>
+        </ion-item>
+
+        <ion-button type="submit" [disabled]="!addBookForm.form.valid">Submit</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="block" (click)="goBack()">Back</ion-button>
+
+</ion-content>
 
 <!-- <ion-card>
   <ion-card-header>Book info</ion-card-header>
