@@ -12,7 +12,7 @@ import { AddbookFormComponent } from 'src/app/tabs/addbook-form/addbook-form.com
 import { BookDetailComponent } from '../book-detail/book-detail.component';
 import { BooksListComponent } from '../books-list/books-list.component';
 import { PageNotFoundComponent } from 'src/app/page-not-found/page-not-found.component';
-import { SettingsComponent } from "../settings/SettingsComponent";
+import { SettingsComponent } from '../settings/settings.component';
 
 const routes: Routes = [
   {
