@@ -1,26 +1,29 @@
-<ion-card>
-  <ion-card-header>
-    <ion-card-title>
-      {{selectedBook?.name}}
-    </ion-card-title>
-    <ion-card-subtitle>
-      {{selectedBook?.author}}
-    </ion-card-subtitle>
-  </ion-card-header>
-  <ion-card-content>
-    <p>Uid: {{selectedBook?.uid}} (developing)</p>
-    <h6>ISBN: {{selectedBook?.ISBN}}</h6>
-    <p *ngIf="selectedBook?.ownerUid">Owner: {{selectedBook?.ownerUid}}</p>
-    <p>{{ownerName}}</p>
-    <h5 *ngIf="selectedBook?.borrowerUid">Borrower: {{selectedBook?.borrowerUid}}</h5>
-    <p>{{borrowerName}}</p>
+<ion-content>
 
-    <!-- TODO: Check if book is borrowed. if yes, then disable the btn -->
-    <ion-button (click)="borrowBook();">Borrow book</ion-button>
-    <!-- TODO: Check if user borrow this book. if not, then disable the btn -->
-    <ion-button (click)="returnBook();" fill="outline">Return book</ion-button>
-  </ion-card-content>
-</ion-card>
-
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        {{selectedBook?.name}}
+      </ion-card-title>
+      <ion-card-subtitle>
+        {{selectedBook?.author}}
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Uid: {{selectedBook?.uid}} (developing)</p>
+      <h6>ISBN: {{selectedBook?.ISBN}}</h6>
+      <p *ngIf="selectedBook?.ownerUid">Owner: {{selectedBook?.ownerUid}}</p>
+      <p>{{ownerName}}</p>
+      <h5 *ngIf="selectedBook?.borrowerUid">Borrower: {{selectedBook?.borrowerUid}}</h5>
+      <p>{{borrowerName}}</p>
+      
+      <!-- TODO: Check if book is borrowed. if yes, then disable the btn -->
+      <ion-button (click)="borrowBook();">Borrow book</ion-button>
+      <!-- TODO: Check if user borrow this book. if not, then disable the btn -->
+      <ion-button (click)="returnBook();" fill="outline">Return book</ion-button>
+    </ion-card-content>
+  </ion-card>
+  
+</ion-content>
 
 <ion-button expand="block" (click)="goBack()">Back</ion-button>
