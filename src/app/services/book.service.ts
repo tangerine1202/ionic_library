@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { User } from '../model/user.model';
 import { Book } from '../model/book.model';
 import { AuthService } from './auth.service';
-import { Observable, Subject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,8 @@ export class BookService {
   constructor(
     private afs: AngularFirestore,
     private authService: AuthService,
+    private router: Router,
+    private location: Location,
   ) {
     this.bookCollection = this.afs.collection<Book>('Books');
     // this.books = this.bookCollection.valueChanges();
@@ -24,6 +26,7 @@ export class BookService {
   addBook(book: Book) {
     this.bookCollection.add({ ...book }).then((doc) => {
       doc.update('uid', doc.id);
+      this.location.back();
       return 'Book added!';
     }).then(msg => {
       console.log(msg);
