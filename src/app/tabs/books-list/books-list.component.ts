@@ -15,8 +15,8 @@ export class BooksListComponent implements OnInit {
   @Input() books: Observable<Book[]>;
 
   constructor(
-    public authService: AuthService,
-    public bookService: BookService,
+    // public authService: AuthService,
+    // public bookService: BookService,
   ) { }
 
   ngOnInit() { }

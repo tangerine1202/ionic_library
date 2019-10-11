@@ -20,7 +20,7 @@ export class HomePageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.allbooks = this.bookService.getAllBooks();
+    this.allbooks = this.bookService.getAllBooks() as Observable<Book[]>;
   }
 
 }

@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Book } from '../model/book.model';
 import { AuthService } from './auth.service';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -88,20 +89,22 @@ export class BookService {
   }
 
   getAllBooks() {
-    return this.bookCollection.valueChanges();
+    return this.afs.collection('Books', ref => ref.orderBy('name')).valueChanges();
   }
 
   getBooksByOwnerUid() {
     return this.authService.user.pipe(
-      switchMap((user, idx) => this.afs.collection('Books', ref => ref.where('ownerUid', '==', user.uid)).valueChanges()
-      )
+      switchMap((user, idx) => this.afs.collection('Books', ref => ref.where('ownerUid', '==', user.uid)).valueChanges()),
+      map((books: Book[]) => books.sort((a, b) => a.name < b.name ? -1 : 1)),
+      catchError(err => err)
     );
   }
 
   getBooksByBorrowerUid() {
     return this.authService.user.pipe(
-      switchMap((user, idx) => this.afs.collection('Books', ref => ref.where('borrowerUid', '==', user.uid)).valueChanges()
-      )
+      switchMap((user, idx) => this.afs.collection('Books', ref => ref.where('borrowerUid', '==', user.uid)).valueChanges()),
+      map((books: Book[]) => books.sort((a, b) => a.name < b.name ? -1 : 1)),
+      catchError(err => err)
     );
   }
 }
