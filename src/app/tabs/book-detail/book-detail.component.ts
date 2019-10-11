@@ -27,9 +27,9 @@ export class BookDetailComponent implements OnInit {
     this.selectBook();
   }
 
+  // TODO: improve this heavy codes
   selectBook() {
     const uid = this.route.snapshot.paramMap.get('uid');
-    // TODO: improve this heavy codes
     this.bookService.getBookByBookUid(uid).subscribe((doc) => {
       if (doc.exists) {
         this.selectedBook = doc.data();
@@ -59,18 +59,6 @@ export class BookDetailComponent implements OnInit {
         this.borrowerName = null;
       }
     }, (err) => {console.log('Error occurred: ', err); });
-
-
-    // this.bookService.getBookByUid(uid).subscribe(doc => {
-    //   if (doc.exists) {
-    //     this.selectedBook = doc.data();
-    //   } else {
-    //     console.log('No such document!');
-    //     this.selectedBook = { uid: null, name: null, author: null, ownerUid: null } as Book;
-    //   }
-    // }, (err) => {console.log('Error occurred: ', err)});
-    // this.selectedBook = this.bookService.getBookByUid(uid);
-    // this.ownerName = this.authService.getUserByUid(this.selectedBook.ownerUid);
   }
 
   borrowBook() {

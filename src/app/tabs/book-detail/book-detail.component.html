@@ -19,18 +19,31 @@
       </ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
-      <p>Uid: {{selectedBook?.uid}} (developing)</p>
-      <h6>ISBN: {{selectedBook?.ISBN}}</h6>
-      <p *ngIf="selectedBook?.ownerUid">Owner: {{selectedBook?.ownerUid}}</p>
-      <p>{{ownerName}}</p>
-      <h5 *ngIf="selectedBook?.borrowerUid">Borrower: {{selectedBook?.borrowerUid}}</h5>
-      <p>{{borrowerName}}</p>
-      
+      <ion-list>
+        <ion-item>
+          <ion-label position="fixed">Uid</ion-label>
+          {{selectedBook?.uid}} (developing)
+        </ion-item>
+        <ion-item *ngIf="selectedBook?.ISBM">
+          <ion-label position="fixed">ISBN:</ion-label>
+          {{selectedBook?.ISBN}}
+        </ion-item>
+        <ion-item *ngIf="selectedBook?.ownerUid">
+          <ion-label position="fixed">Owner:</ion-label>
+          {{ownerName}}
+        </ion-item>
+        <ion-item *ngIf="selectedBook?.borrowerUid">
+          <ion-label position="fixed">Borrower:</ion-label>
+          {{borrowerName}}
+        </ion-item>
+      </ion-list>
+
       <!-- TODO: Check if book is borrowed. if yes, then disable the btn -->
-      <ion-button (click)="borrowBook();">Borrow book</ion-button>
+      <ion-button (click)="borrowBook();" [disabled]="selectedBook?.borrowerUid !== null">Borrow book</ion-button>
       <!-- TODO: Check if user borrow this book. if not, then disable the btn -->
-      <ion-button (click)="returnBook();" fill="outline">Return book</ion-button>
+      <ion-button (click)="returnBook();" fill="outline"
+        [disabled]="selectedBook?.borrowerUid !== authService.userData?.uid">Return book</ion-button>
     </ion-card-content>
   </ion-card>
-  
+
 </ion-content>
