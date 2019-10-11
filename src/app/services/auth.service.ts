@@ -52,7 +52,7 @@ export class AuthService {
     });
   }
 
-  async googleSignin() {
+  googleSignin() {
     const provider = new auth.GoogleAuthProvider();
     return this.oAuthLogin(provider);
   }
@@ -60,7 +60,7 @@ export class AuthService {
   private async oAuthLogin(provider) {
     try {
       const credential = await this.afAuth.auth.signInWithPopup(provider);
-      this.router.navigate(['home']);
+      this.router.navigate(['/tabs/home']);
       return this.updateUserData(credential.user);
     } catch (err) {
       console.log(err);
@@ -98,7 +98,4 @@ export class AuthService {
     return this.userCollection.doc(uid).get();
   }
 
-  navtohome() {
-    this.router.navigate(['/tabs/home']);
-  }
 }
