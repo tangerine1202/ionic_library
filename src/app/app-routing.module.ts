@@ -3,7 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 import { AngularFireAuthGuard, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/auth-guard';
 
-import { LoginPageComponent } from './login-page/login-page.component';
+import { LoginPage } from './auth/login/login.page';
 import { HomePageComponent } from './tabs/home-page/home-page.component';
 import { BookShelfComponent } from './tabs/book-shelf/book-shelf.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';

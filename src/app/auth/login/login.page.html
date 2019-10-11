@@ -9,22 +9,22 @@
   <ion-content>
     
     <ion-grid>
-      <ion-row justify-content-center>
+      <ion-row class="ion-justify-content-center">
         <ion-item>
           <!-- <ion-label position="floating" required>Username:</!-->
           <ion-input placeholder="username" disabled></ion-input>
         </ion-item>
       </ion-row>
-      <ion-row justify-content-center>
+      <ion-row class="ion-justify-content-center">
         <ion-item>
           <!-- <ion-label position="floating" required>Password:</ion-label> -->
           <ion-input placeholder="password" type="password" disabled></ion-input>
         </ion-item>
       </ion-row>
-      <ion-row justify-content-center>
+      <ion-row class="ion-justify-content-center">
         <ion-button type="sumbit" disabled>Login</ion-button>
       </ion-row>
-      <ion-row justify-content-center>
+      <ion-row class="ion-justify-content-center">
         <p class="ion-text-center" style="color: gray; font-size: 0.75rem">
           Register system haven't been finished yet.<br>
           Pleause sign in with Google account.
@@ -37,7 +37,6 @@
             <ion-icon slot="start" name="logo-google"></ion-icon>
             Login by Google
           </ion-button>
-          <ion-button (click)="auth.navtohome()">nav to home</ion-button>
         </ion-row>
       </div>
   
