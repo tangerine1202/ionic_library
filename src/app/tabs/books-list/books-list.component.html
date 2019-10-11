@@ -3,14 +3,65 @@
     <ion-label>{{listName}}</ion-label>
   </ion-list-header>
 
-  <ion-item button routerLink="/detail/{{book?.uid}}" *ngFor="let book of books | async">
-    <ion-label>
-      <h2>{{book.name}}</h2>
-      <h3>{{book.author}}</h3>
-    </ion-label>
-    <ion-badge *ngIf="book.borrowerUid !== null" color="medium tint" mode="ios">&nbsp;</ion-badge>
-  </ion-item>
+  <div *ngIf="(books | async)?.length !== 0 else empty">
+    <ion-item button routerLink="/detail/{{book?.uid}}" *ngFor="let book of books | async">
+      <ion-label>
+        <h2>{{book.name}}</h2>
+        <h3>{{book.author}}</h3>
+      </ion-label>
+      <ion-badge *ngIf="book.borrowerUid !== null" color="medium tint" mode="ios">&nbsp;</ion-badge>
+      <!-- <div *ngTemplateOutlet="detail; context: { $implicit: {selectedBook: book} }"></div> -->
+    </ion-item>
+  </div>
+
+  <ng-template #empty>
+    <ion-item>
+      <ion-label>
+        <p>No books here.</p>
+      </ion-label>
+    </ion-item>
+  </ng-template>
+
+
 </ion-list>
+
+<!-- <ng-template #detail let-selectedBook>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        {{selectedBook?.name}}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label position="fixed">Author:</ion-label>
+          {{selectedBook?.author}}
+        </ion-item>
+        <ion-item *ngIf="selectedBook?.ISBM">
+          <ion-label position="fixed">ISBN:</ion-label>
+          {{selectedBook?.ISBN}}
+        </ion-item>
+        <ion-item *ngIf="selectedBook?.ownerUid">
+          <ion-label position="fixed">Owner:</ion-label>
+          {{selectedBook?.ownerName}}
+        </ion-item>
+        <ion-item *ngIf="selectedBook?.borrowerUid">
+          <ion-label position="fixed">Borrower:</ion-label>
+          {{selectedBook?.borrowerName}}
+        </ion-item>
+      </ion-list> -->
+
+<!-- TODO: Check if book is borrowed. if yes, then disable the btn -->
+<!-- <ion-button (click)="this.authService.borrowBook();" [disabled]="selectedBook?.borrowerUid !== null">Borrow book</ion-button> -->
+<!-- TODO: Check if user borrow this book. if not, then disable the btn -->
+<!-- <ion-button (click)="authService.returnBook();" fill="outline"
+        [disabled]="selectedBook?.borrowerUid !== authService.userData?.uid">Return book</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ng-template> -->
+
 
 <!-- <ion-card>
   <ion-card-header>
