@@ -1,4 +1,18 @@
-<ion-card>
+<ion-list>
+  <ion-list-header>
+    <ion-label>{{listName}}</ion-label>
+  </ion-list-header>
+
+  <ion-item button routerLink="/detail/{{book?.uid}}" *ngFor="let book of books | async">
+    <ion-label>
+      <h2>{{book.name}}</h2>
+      <h3>{{book.author}}</h3>
+    </ion-label>
+    <ion-badge *ngIf="book.borrowerUid !== null" color="medium tint" mode="ios">&nbsp;</ion-badge>
+  </ion-item>
+</ion-list>
+
+<!-- <ion-card>
   <ion-card-header>
     <ion-card-title>{{listName}}</ion-card-title>
   </ion-card-header>
@@ -11,8 +25,7 @@
           <p>{{book.author}}</p>
         </ion-label>
         <ion-badge *ngIf="book.borrowerUid !== null" color="medium tint" mode="ios">&nbsp;</ion-badge>
-        <!-- <ion-badge [color]="book.borrowerUid !== null ? 'success' : 'danger'" slot="end">borrowed time</ion-badge> -->
       </ion-item>
     </ion-list>
   </ion-card-content>
-</ion-card>
+</ion-card> -->
