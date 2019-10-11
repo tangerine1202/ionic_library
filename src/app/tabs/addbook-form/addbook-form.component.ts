@@ -30,8 +30,8 @@ export class AddbookFormComponent implements OnInit {
     }
   }
 
-  goBack() {
-    this.location.back();
-  }
+  // goBack() {
+  //   this.location.back();
+  // }
 
 }
