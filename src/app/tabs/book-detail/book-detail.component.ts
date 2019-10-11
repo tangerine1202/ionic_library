@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./book-detail.component.scss'],
 })
 export class BookDetailComponent implements OnInit {
-  selectedBook: any;
+  selectedBook: Book;
   ownerName?: string | null;
   borrowerName?: string | null;
 
@@ -32,7 +32,7 @@ export class BookDetailComponent implements OnInit {
     const uid = this.route.snapshot.paramMap.get('uid');
     this.bookService.getBookByBookUid(uid).subscribe((doc) => {
       if (doc.exists) {
-        this.selectedBook = doc.data();
+        this.selectedBook = doc.data() as Book;
         console.log(this.selectedBook);
         // set ownerName
         this.authService.getUserByUid(this.selectedBook.ownerUid).subscribe(ownerDoc => {
