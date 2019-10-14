@@ -1,6 +1,9 @@
 <ion-list>
   <ion-list-header>
-    <ion-label>{{listName}}</ion-label>
+    <h5>{{listName}}</h5>
+    <ion-button *ngIf="listName == 'My Books'" routerLink="/addBookForm" fill="outline" class="ion-float-right">
+      add
+    </ion-button>
   </ion-list-header>
 
   <div *ngIf="(books | async)?.length !== 0 else empty">
@@ -10,7 +13,6 @@
         <h3>{{book.author}}</h3>
       </ion-label>
       <ion-badge *ngIf="book.borrowerUid !== null" color="medium tint" mode="ios">&nbsp;</ion-badge>
-      <!-- <div *ngTemplateOutlet="detail; context: { $implicit: {selectedBook: book} }"></div> -->
     </ion-item>
   </div>
 
