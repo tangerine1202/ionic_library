@@ -13,6 +13,7 @@
     <ion-card-header>
       <ion-card-title>
         {{selectedBook?.name}}
+        <ion-button routerLink="/edit/{{selectedBook?.uid}}" fill="outline" class="ion-float-right">Edit</ion-button>
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>

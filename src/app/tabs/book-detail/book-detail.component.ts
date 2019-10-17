@@ -34,7 +34,7 @@ export class BookDetailComponent implements OnInit {
       if (doc.exists) {
         this.selectedBook = doc.data() as Book;
         console.log(this.selectedBook);
-        // set ownerName
+        // get ownerName
         this.authService.getUserByUid(this.selectedBook.ownerUid).subscribe(ownerDoc => {
           if (ownerDoc.exists) {
             this.ownerName = ownerDoc.data().name;
@@ -43,7 +43,7 @@ export class BookDetailComponent implements OnInit {
             this.ownerName = null;
           }
         });
-        // set borrowerName
+        // get borrowerName
         this.authService.getUserByUid(this.selectedBook.borrowerUid).subscribe(borrowerDoc => {
           if (borrowerDoc.exists) {
             this.borrowerName = borrowerDoc.data().name;
@@ -53,6 +53,7 @@ export class BookDetailComponent implements OnInit {
           }
         });
       } else {
+        // TODO: direct to empty template
         console.log('No such document!');
         this.selectedBook = { uid: null, name: null, author: null, ownerUid: null } as Book;
         this.ownerName = null;

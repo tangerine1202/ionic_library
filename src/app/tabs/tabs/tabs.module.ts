@@ -11,6 +11,7 @@ import { BookShelfComponent } from '../book-shelf/book-shelf.component';
 import { AddbookFormComponent } from 'src/app/tabs/addbook-form/addbook-form.component';
 import { BookDetailComponent } from '../book-detail/book-detail.component';
 import { BooksListComponent } from '../books-list/books-list.component';
+import { BookEditComponent } from '../book-edit/book-edit.component';
 import { PageNotFoundComponent } from 'src/app/page-not-found/page-not-found.component';
 import { SettingsComponent } from '../settings/settings.component';
 
@@ -48,6 +49,11 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: 'edit/:uid',
+    component: BookEditComponent,
+    pathMatch: 'full',
+  },
+  {
     path: 'addBookForm',
     component: AddbookFormComponent,
   },
@@ -72,6 +78,7 @@ const routes: Routes = [
     BookShelfComponent,
     BookDetailComponent,
     BooksListComponent,
+    BookEditComponent,
     AddbookFormComponent,
     SettingsComponent,
     PageNotFoundComponent,

@@ -5,7 +5,7 @@ import { AuthService } from './auth.service';
 import { switchMap, catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +42,7 @@ export class BookService {
       if (docRef.exists) {
         // Check whether book is borrowed
         if (docRef.data().borrowerUid === null) {
+          // tslint:disable-next-line: object-literal-key-quotes
           doc.update({ 'borrowerUid': userUid });
           console.log('borrowing book successfully!');
         } else {
@@ -65,6 +66,7 @@ export class BookService {
       if (docRef.exists) {
         // Check whether book is borrowed by user
         if (docRef.data().borrowerUid === userUid) {
+          // tslint:disable-next-line: object-literal-key-quotes
           doc.update({'borrowerUid': null });
           console.log('book return successfully!');
         } else {
@@ -77,9 +79,11 @@ export class BookService {
     return;
   }
 
-  // updateBook() {
-
-  // }
+  updateBook(book: Book) {
+    this.bookCollection.doc(book.uid).update(book).then( () => {
+      console.log('book update!');
+    }).catch( (err) => console.log('Error occurred at updateBook: \n', err) );
+  }
 
   getBookByBookUid(uid: string) {
     if (uid === null) {
