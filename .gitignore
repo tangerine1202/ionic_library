@@ -34,3 +34,4 @@ npm-debug.log*
 /resources/windows
 /www
 .firebase/hosting.*.cache
+.firebase/hosting.d3d3.cache
