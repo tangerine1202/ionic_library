@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { AngularDelegate } from '@ionic/angular';
 
 @Component({
   selector: 'app-settings',
@@ -7,11 +8,16 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
+  darkThemeToggle: boolean;
 
   constructor(
     public authService: AuthService,
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
+
+  darkMode() {
+    document.body.classList.toggle('dark');
+  }
 
 }

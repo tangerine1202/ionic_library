@@ -20,9 +20,10 @@
 
     <ion-list-header>other settings</ion-list-header>
     <ion-item>
-      <ion-label disabled>
+      <ion-label>
         Dark mode
       </ion-label>
+      <ion-toggle (ionChange)="darkMode()"></ion-toggle>
     </ion-item>
     <ion-item>
       <ion-label>
