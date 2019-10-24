@@ -56,7 +56,23 @@ export class BookEditComponent implements OnInit {
         this.bookService.updateBook(this.selectedBook);
         this.location.back();
       } else {
-        console.log('Please submit the form later.');
+        console.log('Permission denied. (this book doesn\'t belong to you');
+      }
+    });
+  }
+
+  deleteBook() {
+    this.authService.user.pipe(
+      first()
+    ).toPromise().then(user => {
+      // second authority check
+      if (this.selectedBook.ownerUid === user.uid) {
+        this.bookService.deleteBook(this.selectedBook.uid);
+        // TODO: improve navigation method
+        this.location.back();
+        this.location.back();
+      } else {
+        console.log('Permission denied. (this book doesn\'t belong to you');
       }
     });
   }

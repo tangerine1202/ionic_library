@@ -82,7 +82,17 @@ export class BookService {
   updateBook(book: Book) {
     this.bookCollection.doc(book.uid).update(book).then( () => {
       console.log('book update!');
-    }).catch( (err) => console.log('Error occurred at updateBook: \n', err) );
+    }).catch( (err) => {
+      console.log('Error occurred at updateBook: \n', err);
+    });
+  }
+
+  deleteBook(uid: string) {
+    this.bookCollection.doc(uid).delete().then( () => {
+      console.log('book deleted!');
+    }).catch( err => {
+      console.log('Error occurred at updateBook: \n', err)
+    });
   }
 
   getBookByBookUid(uid: string) {
