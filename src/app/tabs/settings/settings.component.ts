@@ -8,16 +8,41 @@ import { AngularDelegate } from '@ionic/angular';
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
-  darkThemeToggle: boolean;
+  // darkThemeToggle: boolean;
 
   constructor(
     public authService: AuthService,
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    // Query for the toggle that is used to change between themes
+    // tslint:disable-next-line: member-ordering
+    const toggle = document.querySelector('#themeToggle');
 
-  darkMode() {
-    document.body.classList.toggle('dark');
+    // Listen for the toggle check/uncheck to toggle the dark class on the <body>
+    toggle.addEventListener('ionChange', (ev) => {
+      document.body.classList.toggle('dark', ev.detail.checked);
+    });
+
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+    // Listen for changes to the prefers-color-scheme media query
+    prefersDark.addListener((e) => checkToggle(e.matches));
+
+    // Called when the app loads
+    function loadApp() {
+      checkToggle(prefersDark.matches);
+    }
+
+    // Called by the media query to check/uncheck the toggle
+    function checkToggle(shouldCheck) {
+      toggle.checked = shouldCheck;
+    }
   }
+
+  // darkMode() {
+  //   document.body.classList.toggle('dark');
+  // }
+
 
 }
