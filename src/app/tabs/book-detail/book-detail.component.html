@@ -37,10 +37,10 @@
       </ion-list>
 
       <!-- TODO: Check if book is borrowed. if yes, then disable the btn -->
-      <ion-button (click)="borrowBook();" [disabled]="selectedBook?.borrowerUid !== null">Borrow book</ion-button>
+      <ion-button (click)="borrowBook();" [disabled]="selectedBook?.borrowerUid !== null">Borrow</ion-button>
       <!-- TODO: Check if user borrow this book. if not, then disable the btn -->
       <ion-button (click)="returnBook();" fill="outline"
-        [disabled]="selectedBook?.borrowerUid !== authService.userData?.uid">Return book</ion-button>
+        [disabled]="selectedBook?.borrowerUid !== authService.userData?.uid">Return</ion-button>
     </ion-card-content>
   </ion-card>
 
