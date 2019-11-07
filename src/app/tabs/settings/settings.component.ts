@@ -8,60 +8,39 @@ import { Events } from '@ionic/angular';
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
-  // darkThemeToggle: boolean;
+
+  // TODO: component will reinit when I do [previous page] then [next page].
+  // so themeToggle should be placed where won't be reinit, until I leave the website.
+  themeToggle: any = false;
 
   constructor(
     public authService: AuthService,
   ) { }
 
-  ngOnInit() {
-    // // Query for the toggle that is used to change between themes
-    // // tslint:disable-next-line: member-ordering
-    // const toggle = document.querySelector('#themeToggle');
-
-    // // Listen for the toggle check/uncheck to toggle the dark class on the <body>
-    // toggle.addEventListener('ionChange', (ev) => {
-    //   document.body.classList.toggle('dark', ev.checked);
-    // });
-
-    // const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-
-    // // Listen for changes to the prefers-color-scheme media query
-    // prefersDark.addListener((e) => checkToggle(e.matches));
-
-    // // Called when the app loads
-    // function loadApp() {
-    //   checkToggle(prefersDark.matches);
-    // }
-
-    // // Called by the media query to check/uncheck the toggle
-    // function checkToggle(shouldCheck) {
-    //   toggle.checked = shouldCheck;
-    // }
+  // Called by the media query to check/uncheck the toggle
+  checkToggle(shouldCheck) {
+    console.log('checked: ', shouldCheck);
+    document.body.classList.toggle('dark', shouldCheck);
   }
 
-  // darkMode() {
-  //   document.body.classList.toggle('dark');
-  // }
-
-  themeToggle(ev) {
-    // Listen for the toggle check/uncheck to toggle the dark class on the <body>
-    document.body.classList.toggle('dark', ev.checked);
-
+  ngOnInit() {
+    console.log('setting reinit');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
 
     // Listen for changes to the prefers-color-scheme media query
-    prefersDark.addListener((e) => checkToggle(e.matches));
+    this.themeToggle = prefersDark.matches;
 
     // Called when the app loads
-    function loadApp() {
-      checkToggle(prefersDark.matches);
-    }
+    // function loadApp() {
+    this.checkToggle(prefersDark.matches);
+    // }
 
-    // Called by the media query to check/uncheck the toggle
-    function checkToggle(shouldCheck) {
-      document.body.classList.toggle('dark', shouldCheck);
-    }
+  }
+
+  themeToggleFn(ev) {
+    console.log(ev);
+    // Listen for the toggle check/uncheck to toggle the dark class on the <body>
+    this.checkToggle(ev.detail.checked);
   }
 
 
