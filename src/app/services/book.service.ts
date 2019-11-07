@@ -91,7 +91,7 @@ export class BookService {
     this.bookCollection.doc(uid).delete().then( () => {
       console.log('book deleted!');
     }).catch( err => {
-      console.log('Error occurred at updateBook: \n', err)
+      console.log('Error occurred at updateBook: \n', err);
     });
   }
 
