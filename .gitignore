@@ -33,7 +33,7 @@ npm-debug.log*
 /resources/ios
 /resources/windows
 /www
-.firebase/hosting.*.cache
-.firebase/hosting.d3d3.cache
+/.firebase/hosting.*.cache
+/.firebase/hosting.d3d3.cache
 
 /src/environments
