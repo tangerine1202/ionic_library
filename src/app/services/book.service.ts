@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Book } from '../model/book.model';
 import { AuthService } from './auth.service';
-import { switchMap, catchError, map } from 'rxjs/operators';
+import { switchMap, catchError, map, first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { of, Observable } from 'rxjs';
+import { User } from '../model/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -119,6 +120,15 @@ export class BookService {
       switchMap((user, idx) => this.afs.collection('Books', ref => ref.where('borrowerUid', '==', user.uid)).valueChanges()),
       map((books: Book[]) => books.sort((a, b) => a.name < b.name ? -1 : 1)),
       catchError(err => err)
+    );
+  }
+
+  getBookOwnerNameByBook(book: Book) {
+    return this.authService.getUserByUid(book.ownerUid).pipe(
+      first(),
+      map((user) => {
+        return user.data().name;
+      })
     );
   }
 }

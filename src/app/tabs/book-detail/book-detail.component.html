@@ -12,27 +12,68 @@
   <ion-card>
     <ion-card-header>
       <ion-card-title>
-        {{selectedBook?.name}}
-        <ion-button routerLink="/edit/{{selectedBook?.uid}}" fill="outline" class="ion-float-right">Edit</ion-button>
+        <ion-label>
+          <h1 *ngIf="selectedBook?.name">
+            {{selectedBook?.name}}
+            <ion-button routerLink="/edit/{{selectedBook?.uid}}" fill="outline" class="ion-float-right">Edit</ion-button>
+          </h1>
+          <h1 *ngIf="!selectedBook?.name"><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></h1>
+        </ion-label>
       </ion-card-title>
     </ion-card-header>
+
     <ion-card-content>
-      <ion-list>
+      <ion-list *ngIf="selectedBook && ownerName">
         <ion-item>
           <ion-label position="fixed">Author:</ion-label>
-          {{selectedBook?.author}}
+          <ion-label>
+            <p>{{selectedBook?.author}}</p>
+          </ion-label>
         </ion-item>
-        <ion-item *ngIf="selectedBook?.ISBN">
+        <ion-item>
           <ion-label position="fixed">ISBN:</ion-label>
-          {{selectedBook?.ISBN}}
+          <ion-label>
+            <p>{{selectedBook?.ISBN}}</p>
+          </ion-label>
         </ion-item>
-        <ion-item *ngIf="selectedBook?.ownerUid">
+        <ion-item>
           <ion-label position="fixed">Owner:</ion-label>
-          {{ownerName}}
+          <ion-label>
+            <p *ngIf="ownerName">{{ownerName}}</p>
+          </ion-label>
         </ion-item>
-        <ion-item *ngIf="selectedBook?.borrowerUid">
+        <ion-item>
           <ion-label position="fixed">Borrower:</ion-label>
-          {{borrowerName}}
+          <ion-label>
+            <p>{{borrowerName}}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+
+      <ion-list *ngIf="!selectedBook || !ownerName">
+        <ion-item>
+          <ion-label position="fixed">Author:</ion-label>
+          <ion-label>
+            <p><ion-skeleton-text animated style="width: 25%"></ion-skeleton-text></p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label position="fixed">ISBN:</ion-label>
+          <ion-label>
+            <p><ion-skeleton-text animated style="width: 25%"></ion-skeleton-text></p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label position="fixed">Owner:</ion-label>
+          <ion-label>
+            <p><ion-skeleton-text animated style="width: 25%"></ion-skeleton-text></p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label position="fixed">Borrower:</ion-label>
+          <ion-label>
+            <p><ion-skeleton-text animated style="width: 25%"></ion-skeleton-text></p>
+          </ion-label>
         </ion-item>
       </ion-list>
 

@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { BookService } from '../../services/book.service';
 import { Observable } from 'rxjs';
 import { Book } from '../../model/book.model';
+import { map, first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-books-list',
@@ -15,10 +16,20 @@ export class BooksListComponent implements OnInit {
   @Input() books: Observable<Book[]>;
 
   constructor(
-    // public authService: AuthService,
-    // public bookService: BookService,
+    public bookService: BookService,
   ) { }
 
-  ngOnInit() { }
-
+  ngOnInit() {
+    this.books = this.books.pipe(
+      map(books => {
+          books.forEach(book => {
+            this.bookService.getBookOwnerNameByBook(book).subscribe((ownerName) => {
+              book.ownerName = ownerName;
+            });
+          });
+          return books;
+        }
+      )
+    );
+  }
 }

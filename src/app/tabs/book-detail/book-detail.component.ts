@@ -55,6 +55,7 @@ export class BookDetailComponent implements OnInit {
       } else {
         // TODO: direct to empty template
         console.log('No such document!');
+        this.location.back();
         this.selectedBook = { uid: null, name: null, author: null, ownerUid: null } as Book;
         this.ownerName = null;
         this.borrowerName = null;

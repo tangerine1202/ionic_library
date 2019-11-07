@@ -1,59 +1,83 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-buttons slot="start">
-            <ion-back-button defaultHref="/detail/{{selectedBook?.uid}}"></ion-back-button>
-        </ion-buttons>
-        <ion-title>Book Edit</ion-title>
-    </ion-toolbar>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/detail/{{selectedBook?.uid}}"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Book Edit</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-card>
-        <ion-card-header>
-            <ion-card-title>
-                Edit Book Form
-            </ion-card-title>
-        </ion-card-header>
-        <ion-card-content *ngIf="selectedBook; else loading">
-            <form #editBookForm="ngForm" (ngSubmit)="onSubmit()">
-                <ion-list>
-                    <ion-item>
-                        <ion-label position="floating">Book Name</ion-label>
-                        <ion-input type="text" name="name" [(ngModel)]="selectedBook.name" required
-                            #nameNgModel="ngModel">
-                        </ion-input>
-                        <ion-note slot="end" [hidden]="nameNgModel.valid || nameNgModel.pristine">Book name is required.
-                        </ion-note>
-                    </ion-item>
-                    <ion-item>
-                        <ion-label position="floating">Author</ion-label>
-                        <ion-input type="text" name="author" [(ngModel)]="selectedBook.author" required
-                            #authorNgModel="ngModel">
-                        </ion-input>
-                        <ion-note slot="end" [hidden]="authorNgModel.valid || authorNgModel.pristine">Author name is
-                            required.
-                        </ion-note>
-                    </ion-item>
-                    <ion-item>
-                        <ion-label position="floating">
-                            ISBN<ion-note> (optional) </ion-note>
-                        </ion-label>
-                        <ion-input type="text" name="ISBN" [(ngModel)]="selectedBook.ISBN"></ion-input>
-                    </ion-item>
-                </ion-list>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        Edit Book Form
+      </ion-card-title>
+    </ion-card-header>
 
-                <ion-button type="submit" [disabled]="!editBookForm.form.valid">Submit</ion-button>
-                <ion-button fill="outline" (click)="deleteBook()">Delete</ion-button>
-            </form>
-        </ion-card-content>
+    <ion-card-content>
 
-        <ng-template #loading>
-            <ion-card-content>
-                Please wait...
-            </ion-card-content>
-        </ng-template>
+      <div *ngIf="selectedBook">
+        <form #editBookForm="ngForm" (ngSubmit)="onSubmit()">
+          <ion-list>
+            <ion-item>
+              <ion-label position="floating">Book Name</ion-label>
+              <ion-input type="text" name="name" [(ngModel)]="selectedBook.name" required #nameNgModel="ngModel">
+              </ion-input>
+              <ion-note slot="end" [hidden]="nameNgModel.valid || nameNgModel.pristine">Book name is required.
+              </ion-note>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Author</ion-label>
+              <ion-input type="text" name="author" [(ngModel)]="selectedBook.author" required #authorNgModel="ngModel">
+              </ion-input>
+              <ion-note slot="end" [hidden]="authorNgModel.valid || authorNgModel.pristine">Author name is
+                required.
+              </ion-note>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">
+                ISBN<ion-note> (optional) </ion-note>
+              </ion-label>
+              <ion-input type="text" name="ISBN" [(ngModel)]="selectedBook.ISBN"></ion-input>
+            </ion-item>
+          </ion-list>
+          <ion-button type="submit" [disabled]="!editBookForm.form.valid">Submit</ion-button>
+          <ion-button fill="outline" (click)="deleteBook()">Delete</ion-button>
 
-    </ion-card>
+        </form>
+
+      </div>
+
+      <div *ngIf="!selectedBook">
+        <ion-list>
+          <ion-item>
+            <ion-label>
+              <ion-skeleton-text animated style="width: 25%"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <ion-skeleton-text animated style="width: 25%"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <ion-skeleton-text animated style="width: 25%"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+        <ion-button>Submit</ion-button>
+        <ion-button fill="outline">Delete</ion-button>
+      </div>
+
+    </ion-card-content>
+
+
+  </ion-card>
 
 
 </ion-content>

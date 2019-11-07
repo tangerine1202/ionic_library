@@ -1,31 +1,48 @@
-<ion-list>
-  <ion-list-header>
-    <h5>{{listName}}</h5>
-    <ion-button *ngIf="listName == 'My Books'" routerLink="/addBookForm" fill="outline" class="ion-float-right">
-      add
-    </ion-button>
-  </ion-list-header>
+<div *ngIf="books">
 
-  <div *ngIf="(books | async)?.length !== 0 else empty">
-    <ion-item button routerLink="/detail/{{book?.uid}}" *ngFor="let book of books | async">
-      <ion-label>
-        <h2>{{book.name}}</h2>
-        <h3>{{book.author}}</h3>
-      </ion-label>
-      <ion-badge *ngIf="book.borrowerUid !== null" color="medium tint" mode="ios">&nbsp;</ion-badge>
-    </ion-item>
-  </div>
+  <ion-list>
 
-  <ng-template #empty>
-    <ion-item>
-      <ion-label>
-        <p>No books here.</p>
-      </ion-label>
-    </ion-item>
-  </ng-template>
+    <ion-list-header>
+      <h5>
+        {{listName}}
+      </h5>
+      <ion-button *ngIf="listName=='My Books'" routerLink="/addBookForm" fill="outline" class="ion-float-right ion-padding-end">
+        add
+      </ion-button>
+    </ion-list-header>
+
+    <div *ngIf="books">
+      <ion-item button *ngFor="let book of books | async" routerLink="/detail/{{book?.uid}}" >
+        <ion-label>
+          <h2>{{book.name}}</h2>
+          <p *ngIf="book.ownerName">{{book.ownerName}}</p>
+          <p *ngIf="!book.ownerName"><ion-skeleton-text animated style="width: 25%"></ion-skeleton-text></p>
+        </ion-label>
+        <ion-badge *ngIf="book.borrowerUid !== null" color="medium tint" mode="ios">&nbsp;</ion-badge>
+      </ion-item>
+    </div>
+
+    <div *ngIf="!(books | async)">
+      <ion-item *ngFor="let i of [].constructor(3)">
+        <ion-label>
+          <h2><ion-skeleton-text animated style="width: 70%"></ion-skeleton-text></h2>
+          <p><ion-skeleton-text animated style="width: 25%"></ion-skeleton-text></p>
+        </ion-label>
+      </ion-item>
+    </div>
+
+    <div *ngIf="(books | async)?.length === 0">
+      <ion-item>
+        <ion-label>
+          <p>No books here.</p>
+        </ion-label>
+      </ion-item>
+    </div>
 
 
-</ion-list>
+  </ion-list>
+
+</div>
 
 <!-- <ng-template #detail let-selectedBook>
 

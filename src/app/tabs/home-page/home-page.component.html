@@ -4,9 +4,12 @@
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content>
-  
-  <app-books-list [books]="this.allbooks" [listName]="'Books List'"></app-books-list>
+  <div *ngIf="allbooks">
+    <app-books-list [books]="this.allbooks" [listName]="'Books List'"></app-books-list>
+  </div>
 
+  <div *ngIf="!allbooks">
+    
+  </div>
 </ion-content>
